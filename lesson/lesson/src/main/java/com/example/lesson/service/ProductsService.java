@@ -1,7 +1,9 @@
 package com.example.lesson.service;
 
+import com.example.lesson.Entity.InsertProduct;
 import com.example.lesson.Entity.ProductsRecord;
 import com.example.lesson.Exception.ProductNotFoundException;
+import com.example.lesson.repository.IProductsRepository;
 import com.example.lesson.repository.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +13,7 @@ import java.util.List;
 @Service
 public class ProductsService implements IProductsService{
     @Autowired
-    private ProductsRepository productsRepository;
+    private IProductsRepository productsRepository;
 
     @Override
     public List<ProductsRecord> findAll() {
@@ -26,8 +28,8 @@ public class ProductsService implements IProductsService{
         }
     }
     @Override
-    public int insert(ProductsRecord productsRecord){
-        return productsRepository.insert(productsRecord);
+    public int insert(InsertProduct insertProduct){
+        return productsRepository.insert(insertProduct);
     }
     @Override
     public int update(ProductsRecord productsRecord){

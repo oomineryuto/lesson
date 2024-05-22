@@ -1,5 +1,6 @@
 package com.example.lesson.repository;
 
+import com.example.lesson.Entity.InsertProduct;
 import com.example.lesson.Entity.ProductsRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.DataClassRowMapper;
@@ -27,12 +28,11 @@ public class ProductsRepository implements IProductsRepository{
         return list.isEmpty() ? null : list.get(0);
     }
     @Override
-    public int insert(ProductsRecord productsRecord) {
+    public int insert(InsertProduct insertProduct) {
         var param = new MapSqlParameterSource();
-        param.addValue("id", productsRecord.id());
-        param.addValue("name", productsRecord.name());
-        param.addValue("price", productsRecord.price());
-        return jdbcTemplate.update("INSERT INTO products VALUES(:id, :name, :price)", param);
+        param.addValue("name", insertProduct.name());
+        param.addValue("price", insertProduct.price());
+        return jdbcTemplate.update("INSERT INTO products(name,price) VALUES(:name, :price)", param);
     }
     @Override
     public int update(ProductsRecord productsRecord){
