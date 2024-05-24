@@ -37,6 +37,15 @@ public class ProductsController {
         model.addAttribute("product",productsService.findById(id));
         return "product";
     }
+
+    @PostMapping("product/{id}")
+    public String delete(@PathVariable("id") int id){
+        productsService.findById(id);
+        productsService.delete(id);
+        return "redirect:/product-list";
+    }
+
+
     @GetMapping("/product-add")
     public String index(@ModelAttribute("AddForm") AddForm addForm) {
         return "product-add";
@@ -51,17 +60,19 @@ public class ProductsController {
             return "redirect:/product-list";
         }
     }
-    @GetMapping("/update/{id}")
+    @GetMapping("product/update/{id}")
     public String index2(@ModelAttribute("AddForm") AddForm addForm,@PathVariable("id") int id,Model model) {
         model.addAttribute("product",productsService.findById(id));
         return "update";
     }
-    @PostMapping("/update/{id}")
+    @PostMapping("product/update/{id}")
+
+
     public String update (@PathVariable("id") int id,@Validated @ModelAttribute("AddForm") AddForm addForm, BindingResult bindingResult,Model model){
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("product",productsService.findById(id));
-            return "/update";
+            return "update";
         }else {
             productsService.update(new ProductsRecord(id,addForm.getName(),addForm.getPrice()));
 

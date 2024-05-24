@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1>商品詳細</h1>
+<form th:action="'/product/'+${id}" method="post">
 <p>id:[[${product.id()}]]</p>
 <p>商品名:[[${product.name}]]</p>
 <p>値段:[[${product.price()}]]</p>
+<p><button type="submit">削除</button></p>
+</form>
+<form th:action="'/product/update/'+${id}">
+    <button type="submit">修正</button>
+</form>
 </body>
 </html>
